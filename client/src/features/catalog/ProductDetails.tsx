@@ -8,10 +8,13 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import axios, { AxiosError, AxiosResponse } from "axios";
+import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Product } from "../../app/models/products";
+import agent from "../../app/api/agent";
+import NotFound from "../../app/errors/NotFound";
+import LoadingComponent from "../../app/layout/LoadingComponent";
 
 export default function ProductDetails() {
   const { id } = useParams<{ id: string }>();
@@ -19,19 +22,18 @@ export default function ProductDetails() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5068/api/Product/${id}`)
-      .then((res: AxiosResponse) => {
-        console.log("product single", res.data);
-        setProduct(res.data);
-      })
-      .catch((error: AxiosError) => console.log(error.message))
-      .finally(() => setLoading(false));
+    id &&
+      agent.Catalog.details(parseInt(id))
+        .then((response) => {
+          setProduct(response);
+        })
+        .catch((error: AxiosError) => console.log(error.message))
+        .finally(() => setLoading(false));
   }, [id]);
 
-  if (loading) return <h3>Loading...</h3>;
+  if (loading) return <LoadingComponent message="Loading product..." />;
 
-  if (!product) return <h4>Product Not Found</h4>;
+  if (!product) return <NotFound />;
 
   return (
     <Grid container spacing={6}>
