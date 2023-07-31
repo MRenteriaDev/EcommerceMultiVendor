@@ -31,7 +31,7 @@ namespace API.Controllers
                         .FirstOrDefaultAsync(x => x.BuyerId == Request.Cookies["buyerId"]);
         }
 
-        [HttpPost] //api/basket?productId=4,&quantity=2
+        [HttpPost] //api/basket?productId=4&quantity=2
         public async Task<ActionResult<BasketDto>> AddItemsToBasket(int productId, int quantity)
         {
             var basket = await RetrieveBasket();
@@ -53,8 +53,8 @@ namespace API.Controllers
         [HttpDelete]
         public async Task<ActionResult> RemoveBasketItem(int productId, int quantity)
         {
-            var basket = await RetrieveBasket();
             // get basket
+            var basket = await RetrieveBasket();
 
             // remove item or quantity
             if (basket == null) return NotFound();
