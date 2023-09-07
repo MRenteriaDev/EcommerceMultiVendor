@@ -114,18 +114,6 @@ export default function Register() {
           error={!!errors.password}
           helperText={errors?.password?.message as string}
         />
-        {/* {validationErrors.length > 0 && (
-          <Alert severity="error">
-            <AlertTitle>Validation Error</AlertTitle>
-            <List>
-              {validationErrors.map((error) => (
-                <ListItem key={error}>
-                  <ListItemText>{error} </ListItemText>
-                </ListItem>
-              ))}
-            </List>
-          </Alert>
-        )} */}
         <LoadingButton
           loading={isSubmitting}
           disabled={!isValid}

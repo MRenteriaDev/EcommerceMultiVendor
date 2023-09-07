@@ -51,7 +51,7 @@ namespace API.Controllers
             {
                 Email = user.Email,
                 Token = await _tokenService.GenerateToken(user),
-                Basket = anonBasket != null ? anonBasket.MapBasketDto() : userBasket.MapBasketDto(),
+                Basket = anonBasket != null ? anonBasket.MapBasketDto() : userBasket?.MapBasketDto(),
             };
         }
 
@@ -89,6 +89,16 @@ namespace API.Controllers
                 Token = await _tokenService.GenerateToken(user),
                 Basket = userBasket?.MapBasketDto(),
             };
+        }
+
+        [Authorize]
+        [HttpGet("savedAddress")]
+        public async Task<ActionResult<UserAddress>> GetSavedAddress()
+        {
+            return await _userManager.Users
+                .Where(x => x.UserName == User.Identity.Name)
+                .Select(x => x.Address)
+                .FirstOrDefaultAsync();
         }
 
         private async Task<Basket> RetrieveBasket(string buyerId)
