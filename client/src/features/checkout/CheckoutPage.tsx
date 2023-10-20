@@ -32,7 +32,7 @@ export default function CheckoutPage() {
   const dispatch = useAppDispatch();
   const [paymentMessage, setPaymentMessage] = useState("");
   const [paymentSucced, setPaymentSucced] = useState(false);
-  const { basket } = useAppSelector((state) => state.basket);
+  const { basket } = useAppSelector((state: any) => state.basket);
   const stripe = useStripe();
   const elements = useElements();
 
@@ -101,7 +101,7 @@ export default function CheckoutPage() {
     try {
       const cardElement = elements.getElement(CardNumberElement);
       const paymentResult = await stripe.confirmCardPayment(
-        basket?.clientSecret!,
+        basket?.clientSecret,
         {
           payment_method: {
             card: cardElement!,

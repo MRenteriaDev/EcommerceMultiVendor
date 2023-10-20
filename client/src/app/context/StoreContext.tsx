@@ -11,11 +11,12 @@ export const StoreContext = createContext<StoreContextValues | undefined>(
   undefined
 );
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useStoreContext() {
   const context = useContext(StoreContext);
 
   if (context === undefined) {
-    throw new Error("Oops - we do not seem to be inside the provider");
+    throw Error("Oops - we do not seem to be inside the provider");
   }
 
   return context;

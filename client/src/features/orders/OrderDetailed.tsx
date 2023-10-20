@@ -9,10 +9,10 @@ interface Props {
   setSelectedOrder: (id: number) => void;
 }
 
-export default function OrderDetailed({ order, setSelectedOrder }: Props) {
+export default function OrderDetailed({ order }: Props) {
   const subtotal =
     order.orderItems.reduce(
-      (sum, item) => sum + (item.quantity * item.price),
+      (sum, item) => sum + item.quantity * item.price,
       0
     ) ?? 0;
   return (

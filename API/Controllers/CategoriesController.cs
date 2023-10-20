@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using API.Data;
 using API.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,7 +17,9 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Category>>> GetCategoriesAsync()
         {
-            return await _context.Categories.ToListAsync();
+            var categories = await _context.Categories.ToListAsync();
+
+            return Ok(categories);
         }
     }
 }

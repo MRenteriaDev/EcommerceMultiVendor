@@ -7,7 +7,6 @@ import {
   CardNumberElement,
 } from "@stripe/react-stripe-js";
 import { StripeInput } from "./StripeInput";
-import { useState } from "react";
 import { StripeElementType } from "@stripe/stripe-js";
 
 interface Props {

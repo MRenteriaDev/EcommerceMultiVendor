@@ -22,15 +22,16 @@ import {
 import { fetchProductAsync, productsSelectors } from "./catalogSlice";
 
 export default function ProductDetails() {
-  const { basket, status } = useAppSelector((state) => state.basket);
+  const { basket, status } = useAppSelector((state: any) => state.basket);
   const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string }>();
-  const product = useAppSelector((state) =>
+  const product = useAppSelector((state: any) =>
     productsSelectors.selectById(state, id!)
   );
-  const { status: productStatus } = useAppSelector((state) => state.catalog);
+  const { status: productStatus } = useAppSelector((state: any) => state.catalog);
   const [quantity, setQuantity] = useState(0);
-  const item = basket?.items.find((i) => i.productId === product?.id);
+  // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+  const item = basket?.items.find((i: any) => i.productId === product?.id!);
 
   function handleInputChange(event: any) {
     if (event.target.value >= 0) {
@@ -44,6 +45,7 @@ export default function ProductDetails() {
       const updatedQuantity = item ? quantity - item.quantity : quantity;
       dispatch(
         addBasketItemAsync({
+          // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
           productId: product?.id!,
           quantity: updatedQuantity,
         })
@@ -52,6 +54,7 @@ export default function ProductDetails() {
       const updatedQuantity = item.quantity - quantity;
       dispatch(
         removeBasketItemAsync({
+          // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
           productId: product?.id!,
           quantity: updatedQuantity,
         })

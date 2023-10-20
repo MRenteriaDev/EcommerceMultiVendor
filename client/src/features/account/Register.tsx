@@ -88,7 +88,7 @@ export default function Register() {
           {...register("email", {
             required: "Email is required",
             pattern: {
-              value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+              value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
               message: "Not a valid email address",
             },
           })}
